@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-sm-6 col-md-4" *ngFor="#item of catalogService.items" [value]="item">
+        <div class="thumbnail">
+            <img class="thumbnail-image" src="{{ item.image }}" alt="{{ item.name }}">
+            <div class="caption item-caption">
+                <h3>
+                    {{ item.name }}
+                    <span class="badge">€ {{ item.price }}</span>
+                </h3>
+                <p>{{ item.description }}</p>
+                <button class="btn btn-primary" (click)="cartService.add(item)">
+                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                    Add to cart
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-info" [hidden]="cartService.items.length == 0">
+    <div class="panel-heading">
+        <h3 class="panel-title">Cart</h3>
+    </div>
+    <div class="panel-body">
+        <ul>
+            <li *ngFor="#item of cartService.items" [value]="item">
+                {{ item.name }} - € {{ item.price }}
+                <button class="btn btn-danger" (click)="cartService.remove(item)">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    Remove
+                </button>
+            </li>
+        </ul>
+        <button class="btn btn-danger" (click)="cartService.clear()">Remove all items</button>
+        <button class="btn btn-success" (click)="checkout()">Checkout</button>
+    </div>
+</div>
+
+
+
+
+
+<br />
+<a [routerLink]="['Home']">Go back...</a>
